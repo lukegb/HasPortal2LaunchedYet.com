@@ -146,7 +146,7 @@ for game in games.keys():
     games[game]['name'] = gamemap[gamen][0]
     games[game]['img'] = gamemap[gamen][1]
     #games[game]['incre'] = round(float(games[game]['progress']) / float(secondsgone / 60 / 60), 3)
-    games[game]['incre'] = round(percentps[str(game)])
+    games[game]['incre'] = round(percentps[str(game)], 3)
     if float(games[game]['progress']) < 100:
       owners = round(459.0 / int(games[game]['bar']) * games[game]['cpus'])
       timeq = gamemap[int(game)][2]
