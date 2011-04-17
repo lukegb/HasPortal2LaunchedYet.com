@@ -17,7 +17,7 @@ function updateEstimator() {
 	estimator_end = estimator_end.increment('second', timediff);
 	estimator_pred_end = estimator_pred_end.increment('second', timediff_pred);
 
-	formatter = '(%x %X)';
+	formatter = '(%x %X %Z) ';
 	$('estimator-end').set('html', estimator_end.format(formatter));
 	$('estimator_pred-end').set('html', estimator_pred_end.format(formatter));
 }

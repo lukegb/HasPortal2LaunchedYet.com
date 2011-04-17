@@ -241,13 +241,12 @@ estimator_pred = format_time(timetogo_pred)
 gdin = games.keys()
 gdin = sorted(gdin, key=lambda inp: games[inp]['eta'])
 timetogodin = timetogo
-knockoff = 50 * 60
+knockoff = 40 * 60
 for gamk in gdin:
     if games[gamk]['eta'] == -3:
         continue
     timetogodin = timetogodin - knockoff
 #    print "Knocking off %s min" % str(round(knockoff / 60.0, 1))
-    knockoff = knockoff * 0.8
 print "GLaDOS: %s" % (estimator,)
 #print "JS Predictor: %s" % (estimator_pred,)
 print "Djinni: %s" % format_time(timetogodin)
