@@ -340,8 +340,8 @@ if '' != checkstr:
         "gamedata": gamedata,
         "lastupdate": str(datetime.datetime.fromtimestamp(time.time()).isoformat()),
         "overall": percent,
-		"percentperhour": ratimator,
-		"potatoes": potatoes,
+        "percentperhour": ratimator,
+        "potatoes": potatoes
     } 
     
     import json
