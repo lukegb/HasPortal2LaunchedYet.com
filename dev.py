@@ -232,9 +232,9 @@ timetogo = updatimate - time.time()
 updatimate = time.time() + timetogo
 estimator = format_time(timetogo)
 
-timetogo_pred = (timelefttotal / float(playingtotal)) / (float(potatoes) / 100000.0) * 3600 * 1.0 
-updatimate_pred = time.time() + timetogo_pred
-estimator_pred = format_time(timetogo_pred)
+#timetogo_pred = (timelefttotal / float(playingtotal)) / (float(potatoes) / 100000.0) * 3600 * 1.0 
+#updatimate_pred = time.time() + timetogo_pred
+#estimator_pred = format_time(timetogo_pred)
 
 # dinnerbone start
 gdin = games.keys()
@@ -248,8 +248,13 @@ for gamk in gdin:
 #    print "Knocking off %s min" % str(round(knockoff / 60.0, 1))
     knockoff = knockoff * 0.8
 print "GLaDOS: %s" % (estimator,)
-print "Predictor: %s" % (estimator_pred,)
+print "JS Predictor: %s" % (estimator_pred,)
 print "Djinni: %s" % format_time(timetogodin)
+
+# use djinni for predictor
+timetogo_pred = timetogodin
+updatimate_pred = time.time() + timetogodin
+estimator_pred = format_time(timetogo_pred)
 #dinnerbone end
 
 standard_release = datetime.datetime.fromtimestamp(origtimate)
