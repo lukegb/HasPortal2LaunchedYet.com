@@ -58,6 +58,9 @@ JSONgrabber = new Request.JSON({url: '/data.json', onSuccess: function(newdata) 
 	tooltip.init(); // reinit
         //$('more-info').set('html', pretext);
 //        pretext = '';
+	if (newdata.refreshvalue != mylockandkey) {
+		location.reload(true);
+	}
 }});
 //pretext = '';
 saveb = 0;

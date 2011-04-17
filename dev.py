@@ -24,6 +24,7 @@
 
 import urllib2
 import datetime, texttime, time
+import json
 print "Beginning run... %s" % (str(datetime.datetime.fromtimestamp(time.time())))
 texttime.LANG = "en"
 def format_time(timein):
@@ -133,6 +134,10 @@ unixtimenow = int(time.time())
 secondsgone = unixtimenow - unixtimestart
 
 
+fh = open('/usr/home/lukegb/percentps.json', 'r')
+percentps = json.load(fh)
+fh.close()
+
 timelefttotal = 0
 playingtotal = 0
 
@@ -140,7 +145,8 @@ for game in games.keys():
     gamen = int(game)
     games[game]['name'] = gamemap[gamen][0]
     games[game]['img'] = gamemap[gamen][1]
-    games[game]['incre'] = round(float(games[game]['progress']) / float(secondsgone / 60 / 60), 3)
+    #games[game]['incre'] = round(float(games[game]['progress']) / float(secondsgone / 60 / 60), 3)
+    games[game]['incre'] = round(percentps[str(game)])
     if float(games[game]['progress']) < 100:
       owners = round(459.0 / int(games[game]['bar']) * games[game]['cpus'])
       timeq = gamemap[int(game)][2]
@@ -285,33 +291,21 @@ output = output.replace('GAMEBAR', str(gamebar))
 output = output.replace('BETALINK', 'beta.')
 output = output.replace('LASTUPDATE', str(datetime.datetime.fromtimestamp(time.time()).isoformat()))
 
-output_dark = output.replace('STYLERETHEMER', '')
+import os, hashlib
+h = hashlib.md5()
+h.update(str(os.path.getmtime('/usr/local/www/nginx/template.beta.html')))
+refvalue = h.hexdigest()
+output = output.replace('LASTGEN', refvalue)
+
+
+output_dark = output_light = output
+
 output_dark = output_dark.replace('BGWHAT', '#000')
 output_dark = output_dark.replace('SHOWWHAT', '#fff')
-output_light = output.replace('STYLERETHEMER', """
-<style type="text/css">
-body {
-	background-color: #eee;
-}
-body, h1, h1 a, span, div {
-	color: #000;
-}
-a {
-	color: #333;
-}
-#footer {
-	background-color: rgba(250, 250, 250, 0.7);
-}
-.switchdark {
-	display: inline;
-}
-.switchlight {
-	display: none;
-}
-</style>
-""")
+
 output_light = output_light.replace('BGWHAT', '#eee')
 output_light = output_light.replace('SHOWWHAT', '#000')
+output_light = output_light.replace('</head>', '<link href="http://hasportal2launchedyet.com/lighter.css" rel="stylesheet" type="text/css" media="screen" /></head>')
 
 outputhndl = open('/usr/local/www/nginx/inside.beta.html', 'w')
 outputhndl.write(output_dark)
@@ -346,10 +340,10 @@ if 'beta.' != checkstr:
         "lastupdate": str(datetime.datetime.fromtimestamp(time.time()).isoformat()),
         "overall": percent,
         "percentperhour": ratimator,
-        "potatoes": potatoes
+        "potatoes": potatoes,
+        "refreshvalue": refvalue
     } 
     
-    import json
     outputhndl = open('/usr/local/www/nginx/data.json', 'w')
     json.dump(jsonout, outputhndl)
     outputhndl.close()
