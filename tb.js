@@ -5,8 +5,21 @@ function updateEstimator() {
         timediff_pred = Math.round((endtime_pred - timenow_unix) / 1000);
         outputvalu = magicaway(timediff);
         outputvalu_pred = magicaway(timediff_pred);
-        document.getElementById('estimator').innerHTML = outputvalu;
-        document.getElementById('estimator_pred').innerHTML = outputvalu_pred;
+//        document.getElementById('estimator').innerHTML = outputvalu;
+//        document.getElementById('estimator_pred').innerHTML = outputvalu_pred;
+	$('estimator').set('html', outputvalu);
+	$('estimator_pred').set('html', outputvalu_pred);
+
+	// now for estimator-end and estimator_pred end
+	estimator_end = new Date();
+	estimator_pred_end = new Date();
+
+	estimator_end = estimator_end.increment('second', timediff);
+	estimator_pred_end = estimator_pred_end.increment('second', timediff_pred);
+
+	formatter = '(%x %X)';
+	$('estimator-end').set('html', estimator_end.format(formatter));
+	$('estimator_pred-end').set('html', estimator_pred_end.format(formatter));
 }
 
 function magicaway(timediff) {
@@ -79,7 +92,7 @@ function getDot() { return '.'; }
 function getEnding() { return 'com'; }
 
 
-oldload = window.onload;
+//oldload = window.onload;
 function newload() {
 	em = document.getElementById('e3ma1l-a');
 	em.onclick = function() {
@@ -90,6 +103,31 @@ function newload() {
 	setInterval("pulsate()", 500);
 	setInterval('updateEndpoint()', 90000);
         setInterval('updateEstimator()', 40);
-	oldload();
+	// detect locale
+	setl = Cookie.read('setlocale');
+	if (setl == null) {
+		Locale.AutoUse(navigator);
+	} else {
+		Locale.use(setl);
+	}
+	setl = Locale.getCurrent().name;
+	// populate localebox
+	$('localebox').empty();
+	i = 0;
+	ll = Locale.list();
+	while (i < ll.length) {
+		$('localebox').grab(new Element('option', {value: ll[i], html: ll[i]}));
+		i = i + 1;
+	}
+	$('localebox').set('value', setl);
+	$('localebox').addEvent('change', newlocale);
+	$('locale-div').setStyle('visibility', 'visible');
 }
-window.onload = newload;
+//window.onload = newload;
+window.addEvent('domready', newload);
+
+function newlocale() {
+	Cookie.write('setlocale', $(this).get('value'));
+	Locale.use($(this).get('value'));
+	// bing
+}
