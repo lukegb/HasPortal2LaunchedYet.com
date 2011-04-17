@@ -1,6 +1,8 @@
-
 # -*- coding: utf-8 -*-
 from datetime import timedelta
+
+##### THIS CODE IS NOT BY LUKE GRANGER-BROWN
+##### AND IS HENCEFORTH NOT LICENSED UNDER THE GNU AGPL
 
 # Set this to the language you want to use.
 LANG = "sv"
