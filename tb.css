@@ -13,7 +13,7 @@ div#qTip {
 display: inline-block; opacity: 0.2; width: 32px; height: 32px;
 }
 .gamebox-top {
-position: relative; top: -34px; display: inline-block;
+position: relative; top: -32px; margin-top: -8px; display: inline-block;
 width: 32px;
 }
 
