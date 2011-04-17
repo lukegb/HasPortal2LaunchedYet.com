@@ -148,13 +148,14 @@ for game in games.keys():
     #games[game]['incre'] = round(float(games[game]['progress']) / float(secondsgone / 60 / 60), 3)
     games[game]['incre'] = round(percentps[str(game)], 3)
     if float(games[game]['progress']) < 100:
-      owners = round(459.0 / int(games[game]['bar']) * games[game]['cpus'])
-      timeq = gamemap[int(game)][2]
-      playing = int(games[game]['cpus'])
-      eta = timeq - ((round(playing * 100.0 / owners) / 100.0) * 1.0 * timeq)
-      timelefttotal = timelefttotal + eta
-      eta = (eta / playing) / (potatoes / 100000.0)
-      timetogogame = eta * 60 * 60
+      #owners = round(459.0 / int(games[game]['bar']) * games[game]['cpus'])
+      #timeq = gamemap[int(game)][2]
+      #playing = int(games[game]['cpus'])
+      #eta = timeq - ((round(playing * 100.0 / owners) / 100.0) * 1.0 * timeq)
+      #timelefttotal = timelefttotal + eta
+      #eta = (eta / playing) / (potatoes / 100000.0)
+      #timetogogame = eta * 60 * 60
+      timetogogame = ((100.0 - float(games[game]['progress'])) / games[game]['incre']) * 60 * 60
       # timetogogame = int(secondsgone * 100 / float(games[game]['progress']))
       games[game]['eta'] = timetogogame
       estimatorgame = format_time(timetogogame)
