@@ -1,0 +1,130 @@
+div#qTip {
+ padding: 5px;
+ border: 1px solid #fff;
+ display: none;
+ background: #000;
+ color: #fff;
+ font: bold 12px Arial, sans-serif;
+ text-align: left;
+ position: absolute;
+ z-index: 1000;
+}
+.gamebox-bot {
+display: inline-block; opacity: 0.2; width: 32px; height: 32px;
+}
+.gamebox-top {
+position: relative; top: -34px; display: inline-block;
+width: 32px;
+}
+
+
+table, tr, td, th, span {
+        border-width: 0px;
+        border-spacing: 0px;
+        border-collapse: collapse;
+        vertical-align: top;
+}
+table {
+        position: relative;
+        left: 50%;
+        width: 416px;
+        margin-left: -208px;
+}
+h1 {
+        font-size: 800%;
+        margin-top: 15%;
+        font-family: Arial, sans-serif;
+}
+h1 a {
+        text-decoration: none;
+        color: white;
+}
+body {
+        text-align: center;
+        color: white !important;
+        background-color: black;
+        min-width: 1000px;
+        min-height: 700px;
+}
+a {
+        color: grey;
+}
+#launch-percent, #launch-estimator {
+        margin-top: 40px;
+        font-size: 200%;
+}
+#estimator, em {
+        font-size: 150%;
+}
+#footer {
+        position: fixed;
+        bottom: 0px;
+        left: 0px;
+        background-color: rgba(0, 0, 0, 0.8);
+        height: 40px;
+        padding: 10px 20px;
+        width: 100%;
+}
+#by {
+/*      position: fixed;
+        bottom: 20px;
+        left: 20px;*/
+        float: left;
+
+}
+#more-info {
+/*
+        position: fixed;
+        bottom: 20px;
+        right: 20px;*/
+        text-align: right;
+        float: right;
+        margin-right: 40px;
+}
+#potato, #potato-2 {
+        position: absolute;
+        top: 5px;
+        left:50%;
+        width: 254px;
+        height: 62px;
+        margin-left: -127px;
+}
+#potato {
+        background-image: url(http://i.imgur.com/OdhQD.png);
+}
+#potato-2 {
+        background-image: url(http://i.imgur.com/7i9MJ.png);
+}
+#portalman {
+        position: fixed;
+        top: 120px;
+        left: 0px;
+        width: 82px;
+        height: 229px;
+        background-image: url(http://i.imgur.com/LQFq4.png);
+}
+#portalmanbar {
+        position: fixed;
+        top: 0px;
+        left: 0px;
+        width: 6px;
+        height: 100%;
+        background-color: rgb(17,155,207);
+        z-index: 9001; /* it's over 9000 */
+}
+#gamebar {
+        position: relative;
+        top: -50px;
+}
+#switchup {
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        z-index: 9003; /* and so's this */
+        padding: 10px;
+        border-right: 5px solid rgb(17,155,207);
+        border-bottom: 5px solid rgb(17,155,207);
+}
+.switchdark {
+        display: none;
+}
