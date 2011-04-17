@@ -241,7 +241,7 @@ estimator_pred = format_time(timetogo_pred)
 gdin = games.keys()
 gdin = sorted(gdin, key=lambda inp: games[inp]['eta'])
 timetogodin = timetogo
-knockoff = 40 * 60
+knockoff = 45 * 60
 for gamk in gdin:
     if games[gamk]['eta'] == -3:
         continue
