@@ -24,6 +24,14 @@ table, tr, td, th, span {
         border-collapse: collapse;
         vertical-align: top;
 }
+span.gamebox-top b {
+	font-family: Arial, Helvetica, sans-serif;
+}
+div em {
+	padding-left: 10px;
+	padding-right: 10px;
+	font-family: 'Anonymous Pro', Consolas, sans-serif;
+}
 table {
         position: relative;
         left: 50%;
@@ -33,13 +41,14 @@ table {
 h1 {
         font-size: 800%;
         margin-top: 15%;
-        font-family: Arial, sans-serif;
+        font-family: 'Droid Sans', Arial, sans-serif;
 }
 h1 a {
         text-decoration: none;
         color: white;
 }
 body {
+	font-family: 'Vollkorn', 'Times New Roman', serif;
         text-align: center;
         color: white !important;
         background-color: black;
