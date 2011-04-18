@@ -44,19 +44,28 @@ pagedata = json.loads(pagedata)
 outputdata = {}
 for game in pagedata:
     now = game['data'][-1]
-    secdiff = 0
+    secdiff_hr = secdiff_ten = 0
     undone = -2
-    preback = game['data'][undone]
-    while secdiff < 60 * 60:
-        preback = game['data'][undone]
-        secdiff = (now['x'] - preback['x']) / 1000.0
+    preback_ten = game['data'][undone]
+    while (secdiff_ten < 10 * 60) and (3 < (len(game['data']) + undone)):
+        preback_ten = game['data'][undone]
+        secdiff_ten = (now['x'] - preback_ten['x']) / 1000.0
+        undone = undone - 1
+    undone = -2
+    preback_hr = game['data'][undone]
+    while (secdiff_hr < 60 * 60) and (3 < (len(game['data']) + undone)):
+        preback_hr = game['data'][undone]
+        secdiff_hr = (now['x'] - preback_hr['x']) / 1000.0
         undone = undone - 1
     nowval = now['y']
-    thenval = preback['y']
-    valdiff = nowval - thenval
+    thenval_hr = preback_hr['y']
+    thenval_ten = preback_hr['y']
+    valdiff_hr = nowval - thenval_hr
+    valdiff_ten = nowval - thenval_ten
     # and now for my last trick
-    percentperhour = valdiff * 3600.0 / secdiff
-    outputdata[intermap[game['name']]] = valdiff
+    percentperhour_hr = round(valdiff_hr * 3600.0 / secdiff_hr, 3)
+    percentperhour_ten = round(valdiff_ten * 3600.0 / secdiff_ten, 3)
+    outputdata[intermap[game['name']]] = {'hour': percentperhour_hr, 'tenmin': percentperhour_ten}
 
 print outputdata
 outputstream = open('/usr/home/lukegb/percentps.json', 'w')

@@ -46,7 +46,7 @@ function magicaway(timediff) {
         return hourdiff + ':' + minpad + mindiff + ':' + secpad + secdiff;
 }
 
-JSONgrabber = new Request.JSON({url: '/data.json', onSuccess: function(newdata) {
+JSONgrabber = new Request.JSON({url: '/data.beta.json', onSuccess: function(newdata) {
 	clearTimeout(saveb);
 	$('potato-2').setStyle('width', newdata.logowidth);
 	$('gamebar').set('html', newdata.gamebar);

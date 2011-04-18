@@ -146,7 +146,8 @@ for game in games.keys():
     games[game]['name'] = gamemap[gamen][0]
     games[game]['img'] = gamemap[gamen][1]
     #games[game]['incre'] = round(float(games[game]['progress']) / float(secondsgone / 60 / 60), 3)
-    games[game]['incre'] = round(percentps[str(game)], 3)
+    games[game]['incre'] = round(percentps[str(game)]['tenmin'], 3)
+    games[game]['incre_multi'] = percentps[str(game)]
     if float(games[game]['progress']) < 100:
       #owners = round(459.0 / int(games[game]['bar']) * games[game]['cpus'])
       #timeq = gamemap[int(game)][2]
@@ -211,7 +212,8 @@ for game in games.keys():
         'isfocus': (focus == int(game)),
         'complete': (games[game]['estim'] == 'COMPLETE'),
         'timeleft': games[game]['estim'],
-        'percentperhour': games[game]['incre']
+        'percentperhour': games[game]['incre'],
+        'percentperhour_multi': games[game]['incre_multi']
     }
     
 gamebar = "<table>%s%s</tr></table>" % (gamebara,gamebarb)
