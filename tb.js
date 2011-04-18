@@ -17,9 +17,11 @@ function updateEstimator() {
 	estimator_end = estimator_end.increment('second', timediff);
 	estimator_pred_end = estimator_pred_end.increment('second', timediff_pred);
 
-	formatter = '(%x %X %Z) ';
-	$('estimator-end').set('html', estimator_end.format(formatter));
-	$('estimator_pred-end').set('html', estimator_pred_end.format(formatter));
+	formatter = '(%x %X ';
+	estimA = estimator_end.format(formatter) + dateFormat(estimator_end, 'Z') + ') ';
+	estimB = estimator_pred_end.format(formatter) + dateFormat(estimator_pred_end, 'Z') + ') ';
+	$('estimator-end').set('html', estimA);
+	$('estimator_pred-end').set('html', estimB);
 }
 
 function magicaway(timediff) {
