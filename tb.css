@@ -9,12 +9,15 @@ div#qTip {
  position: absolute;
  z-index: 1000;
 }
-.gamebox-bot {
-display: inline-block; opacity: 0.2; width: 32px; height: 32px;
+#gamebar a {
+text-decoration: none;
 }
-.gamebox-top {
-position: relative; top: -32px; margin-top: -8px; display: inline-block;
-width: 32px;
+.gamebox-bot, .gamebox-top {
+	line-height: 0px;
+	width: 32px;
+}
+.gamebox-bot {
+opacity: 0.2; background-position: center bottom;
 }
 
 #locale-div {
@@ -25,6 +28,9 @@ width: 32px;
 	height: 20px;
 }
 
+th.current-focus {
+	border: 1px solid gray;
+}
 
 table, tr, td, th, span {
         border-width: 0px;
@@ -32,7 +38,10 @@ table, tr, td, th, span {
         border-collapse: collapse;
         vertical-align: top;
 }
-span.gamebox-top b {
+.current-focus {
+	text-align: center;
+}
+.current-focus b {
 	font-family: Arial, Helvetica, sans-serif;
 }
 div em {

@@ -172,9 +172,9 @@ gamebarb = "</tr><tr>"
 gamedata = {}
 
 for game in games.keys():
-    widthbar = str(round(float(games[game]['progress']) / 100.0 * 32))
-    gamebita = "<th id='game-GAMEID'><a href='http://store.steampowered.com/app/GAMEID'><span class='gamebox-bot' style='background-image: url(BGIMG);' title='TOOLTIP'>&nbsp;</span></a></th>"
-    gamebitb = "<td style='text-align: left;' id='game-top-GAMEID'><a href='http://store.steampowered.com/app/GAMEID'><span class='gamebox-top' style='background-image: url(BGIMG); height: WIDTHBARpx;' title='TOOLTIP'>&nbsp;AMIFOCUS</span></a></td>"
+    widthbar = round(float(games[game]['progress']) / 100.0 * 32)
+    gamebita = "<thCFCLASS id='game-GAMEID'><a href='http://store.steampowered.com/app/GAMEID'><div style='display: inline-block'><div class='gamebox-top' style='background-image: url(BGIMG); height: PHEIGHTpx' title='TOOLTIP'></div><div class='gamebox-bot' style='background-image: url(BGIMG); height: TDHEIGHTpx;' title='TOOLTIP'></div></div></a></th>"
+    gamebitb = "<tdCFCLASS id='game-top-GAMEID'>AMIFOCUS</td>"
 
     if games[game]['estim'] != 'COMPLETE':
         tewltip  = "<u>%s</u><br />%s%% (%s%%/hour)<br />Time left: %s" % (games[game]['name'], games[game]['progress'], games[game]['incre'], games[game]['estim'])
@@ -183,23 +183,22 @@ for game in games.keys():
 
     if focus == int(game):
         tewltip = "%s<br /><br /><em>CURRENT FOCUS</em>" % (tewltip,)
+        gamebitb = gamebitb.replace('AMIFOCUS', "<a href='http://store.steampowered.com/app/GAMEID'><b>^ PLAY ME</b></a>")
+        gamebita = gamebita.replace('CFCLASS', " class='current-focus'")
+        gamebitb = gamebitb.replace('CFCLASS', " class='current-focus'")
+
     gamebita = gamebita.replace('TOOLTIP', tewltip)
     gamebitb = gamebitb.replace('TOOLTIP', tewltip)
-    if focus != int(game):
-        gamebitb = gamebitb.replace('AMIFOCUS', '')
-    else:
-        gamebitb = gamebitb.replace('AMIFOCUS', '<br /><br /><b>^ PLAY ME</b>')
+    gamebitb = gamebitb.replace('AMIFOCUS', '')
+    gamebita = gamebita.replace('CFCLASS', '')
+    gamebitb = gamebitb.replace('CFCLASS', '')
 
-    if focus != int(game):
-        gamebita = gamebita.replace('GAMEID', game)
-        gamebitb = gamebitb.replace('GAMEID', game)
-    else: 
-        gamebita = gamebita.replace('GAMEID', "%s' class='current-focus" % (game,))
-        gamebitb = gamebitb.replace('GAMEID', "%s' class='current-focus" % (game,))
+    gamebita = gamebita.replace('GAMEID', game)
+    gamebitb = gamebitb.replace('GAMEID', game)
 
     gamebita = gamebita.replace('BGIMG', games[game]['img'])
-    gamebitb = gamebitb.replace('BGIMG', games[game]['img'])
-    gamebitb = gamebitb.replace('WIDTHBAR', widthbar)
+    gamebita = gamebita.replace('PHEIGHT', str(widthbar))
+    gamebita = gamebita.replace('TDHEIGHT', str(round(32 - widthbar)))
     gamebara = "%s%s" % (gamebara, gamebita)
     gamebarb = "%s%s" % (gamebarb, gamebitb)
     
@@ -207,7 +206,7 @@ for game in games.keys():
     gamedata[games[game]['name']] = {
         'progress': games[game]['progress'],
         'image': games[game]['img'],
-        'height': widthbar,
+        'height': str(widthbar),
         'id': game,
         'isfocus': (focus == int(game)),
         'complete': (games[game]['estim'] == 'COMPLETE'),
