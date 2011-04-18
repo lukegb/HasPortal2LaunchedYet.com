@@ -59,7 +59,7 @@ for game in pagedata:
         undone = undone - 1
     nowval = now['y']
     thenval_hr = preback_hr['y']
-    thenval_ten = preback_hr['y']
+    thenval_ten = preback_ten['y']
     valdiff_hr = nowval - thenval_hr
     valdiff_ten = nowval - thenval_ten
     # and now for my last trick
