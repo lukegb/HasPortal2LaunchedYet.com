@@ -39,6 +39,12 @@ def format_time(timein):
       return datet.strftime("%M:%S")
   return datet.strftime("%S")
 
+store = urllib2.urlopen("http://store.steampowered.com/app/620/").read()
+if 'game_area_comingsoon' in store or 'will unlock in' in store:
+    launched = False
+else:
+    launched = True
+
 base_uri = "http://www.aperturescience.com/glados@home/"
 base_get = urllib2.urlopen(base_uri)
 
@@ -120,13 +126,14 @@ while keepgoing:
         print datetime.datetime.fromtimestamp(updatimate).isoformat()
     if pcnext:
         pcnext = False
-        potatoesstart = line.find('X ') + 2
-        potatoesend = line.find('	', potatoesstart)
+        potatoesstart = line.find('none;">') + 7
+        potatoesend = line.find('</', potatoesstart)
         potatoes = int(line[ potatoesstart:potatoesend ].replace(',',''))
     if 'potato_count' in line:
         pcnext = True
     if '</body>' in line:
         keepgoing = False
+
 
 import time
 unixtimestart = 1302883200
@@ -218,18 +225,24 @@ for game in games.keys():
 gamebar = "<table>%s%s</tr></table>" % (gamebara,gamebarb)
 line = progline
 
-width = line.find(': ')+2
-endwidth = line.find('px;">')
-
-maxwidth = 494.0
-percent = round(int(line[width:endwidth]) / maxwidth * 100, 3)
+if not launched:
+    width = line.find(': ')+2
+    endwidth = line.find('px;">')
+    
+    maxwidth = 494.0
+    percent = round(int(line[width:endwidth]) / maxwidth * 100, 3)
+else:
+    percent = 100.0
 
 ratimator = round(percent / float(secondsgone / 60 / 60), 2)
 
 
 logopacity = int(round(percent / 100.0, 4) * 254)
 
-template = open('/usr/local/www/nginx/template.beta.html', 'r')
+if not launched:
+    template = open('/usr/local/www/nginx/template.beta.html', 'r')
+else:
+    template = open('/usr/local/www/nginx/launched.beta.html', 'r')
 templat = template.read()
 
 #timetogo = secondsgone * 100 / percent
@@ -249,11 +262,25 @@ estimator_pred = format_time(timetogo_pred)
 gdin = games.keys()
 gdin = sorted(gdin, key=lambda inp: games[inp]['eta'])
 timetogodin = timetogo
-knockoff = 45 * 60
+knockoff = 55 * 60
 for gamk in gdin:
     if games[gamk]['eta'] == -3:
         continue
+    if games[gamk]['eta'] > timetogo:
+        continue
     timetogodin = timetogodin - knockoff
+
+# find min
+mindiff = 9999999999999
+for gamk in gdin:
+    if games[gamk]['eta'] < mindiff and games[gamk]['eta'] > 0:
+        mindiff = games[gamk]['eta']
+
+print "md:"
+print mindiff
+if timetogodin < mindiff:
+    timetogodin = mindiff
+
 #    print "Knocking off %s min" % str(round(knockoff / 60.0, 1))
 print "GLaDOS: %s" % (estimator,)
 #print "JS Predictor: %s" % (estimator_pred,)
@@ -297,6 +324,8 @@ import os, hashlib
 h = hashlib.md5()
 h.update(str(os.path.getmtime('/usr/local/www/nginx/template.beta.html')))
 refvalue = h.hexdigest()
+if launched:
+    refvalue = 'gladosisgo'
 output = output.replace('LASTGEN', refvalue)
 
 
