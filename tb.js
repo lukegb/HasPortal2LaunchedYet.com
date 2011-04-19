@@ -1,3 +1,5 @@
+failcounter = 0;
+
 function updateEstimator() {
         timenow = new Date();
         timenow_unix = new Date();
@@ -47,6 +49,7 @@ function magicaway(timediff) {
 }
 
 JSONgrabber = new Request.JSON({url: '/data.beta.json', onSuccess: function(newdata) {
+	failcounter = 0;
 	clearTimeout(saveb);
 	$('potato-2').setStyle('width', newdata.logowidth);
 	$('gamebar').set('html', newdata.gamebar);
@@ -73,7 +76,12 @@ function updateEndpoint() {
     JSONgrabber.get();
 }
 function forceRefresh() {
-    window.location = window.location;
+	if (failcounter < 5) {
+		failcounter = failcounter + 1;
+		updateEndpoint();
+		return
+	}
+	location.reload(true);
 }
 ison = true;
 function pulsate() {
